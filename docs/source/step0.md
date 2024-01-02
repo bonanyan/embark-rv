@@ -2,6 +2,11 @@
 
 ## Run
 
+First enter ``test`` folder:
+```bash
+cd embark-rv/src/01_fetch/test
+```
+
 To run simulation:
 ```bash
 make
