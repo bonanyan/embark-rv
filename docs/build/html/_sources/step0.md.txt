@@ -1,10 +1,15 @@
 # 00\_Build _Memory_
 
+## Description
+This step build memories, including *RAM* (random-access memory) and *ROM* (read-only memory to store all instructions/programs).
+
+The design is in ``embark-rv/src/00_memory/rtl/``.Testbench is provided in ``embark-rv/src/00_memory/test/``
+
 ## Run
 
 First enter ``test`` folder:
 ```bash
-cd embark-rv/src/01_fetch/test
+cd embark-rv/src/00_memory/test
 ```
 
 To run simulation:

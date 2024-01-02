@@ -48,7 +48,13 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Preparation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="step0.html">00_Build <em>Memory</em></a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">01_Build <em>Fetch</em></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">01_Build <em>Fetch</em></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run">Run</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#files">Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#useful-tools">Useful Tools</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="step2.html">02_Build <em>Decode</em></a></li>
 <li class="toctree-l1"><a class="reference internal" href="step3.html">03_Build <em>lw</em></a></li>
 <li class="toctree-l1"><a class="reference internal" href="step4.html">04_Build <em>sw</em></a></li>
@@ -80,6 +86,73 @@
              
   <section id="build-fetch">
 <h1>01_Build <em>Fetch</em><a class="headerlink" href="#build-fetch" title="Permalink to this heading"></a></h1>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this heading"></a></h2>
+<p>This step introduce instruction fetching function in <code class="docutils literal notranslate"><span class="pre">core.v</span></code>. The core module is named as <code class="docutils literal notranslate"><span class="pre">embarkrv</span></code> in <em>“core.v”</em>.
+A system-on-a-chip (SoC) is a module that includes both the <code class="docutils literal notranslate"><span class="pre">embarkrv</span></code> core and memories. <em>Instr Fetch</em> only uses ROM.</p>
+<p>The design is in <code class="docutils literal notranslate"><span class="pre">embark-rv/src/01_fetch/rtl/</span></code>.Testbench is provided in <code class="docutils literal notranslate"><span class="pre">embark-rv/src/01_fetch/test/</span></code></p>
+</section>
+<section id="run">
+<h2>Run<a class="headerlink" href="#run" title="Permalink to this heading"></a></h2>
+<p>First enter <code class="docutils literal notranslate"><span class="pre">test</span></code> folder:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>embark-rv/src/01_fetch/test
+</pre></div>
+</div>
+<p>To run simulation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make
+</pre></div>
+</div>
+<p>To plot the waveform:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>plot
+</pre></div>
+</div>
+<p>To clean up (remove the generated files):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>clean
+</pre></div>
+</div>
+<p>For code linting:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>soc
+make<span class="w"> </span>core
+</pre></div>
+</div>
+</section>
+<section id="files">
+<h2>Files<a class="headerlink" href="#files" title="Permalink to this heading"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>01_fetch
+├── rtl //design
+│   ├── core.v //embark core design
+│   ├── memory.v
+│   └── soc.v //memory + embark core
+└── test
+    ├── makefile //top entry
+    ├── program.hex //converted instruction memory content for loading in the initial stage
+    ├── testCode.bin //random instruction memory content for testing
+    ├── testCode.hex //random instruction memory content for testing in hexidecimal
+    ├── testbench.v //verilog testbench
+    ├── wave        //generated executable
+    └── wave.vcd    //generated waveform file
+</pre></div>
+</div>
+</section>
+<section id="useful-tools">
+<h2>Useful Tools<a class="headerlink" href="#useful-tools" title="Permalink to this heading"></a></h2>
+<p>Note that program.hex can be converted automatically by embark-rv/utilities/convertTestCode.py, to use it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>embark-rv/utilities/
+python<span class="w"> </span>convertTestCode.py<span class="w"> </span>-i<span class="w"> </span>testCode.bin<span class="w"> </span>-o<span class="w"> </span>program.hex<span class="w"> </span>-ou<span class="w"> </span>testCode.hex
+</pre></div>
+</div>
+<blockquote>
+<div><blockquote>
+<div><p><strong>require python package: argparse, random</strong>, they are very common though.</p>
+</div></blockquote>
+</div></blockquote>
+<p>if you only change the content without changing file names, you can directly use:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>embark-rv/utilities/
+python<span class="w"> </span>convertTestCode.py
+</pre></div>
+</div>
+<p>the default file names are exactly: <code class="docutils literal notranslate"><span class="pre">testCode.bin</span></code> (input binary instruction), <code class="docutils literal notranslate"><span class="pre">testCode.hex</span></code> (output hexadecimal instruction), and <code class="docutils literal notranslate"><span class="pre">program.hex</span></code> (output hex file for Verilog to load into the memory using Verilog system function <code class="docutils literal notranslate"><span class="pre">$readmemh()</span></code>, in <em>memory.v”</em>).</p>
+</section>
 </section>
 
 
