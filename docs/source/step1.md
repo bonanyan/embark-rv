@@ -68,3 +68,8 @@ cd embark-rv/utilities/
 python convertTestCode.py
 ```
 the default file names are exactly: ``testCode.bin`` (input binary instruction), ``testCode.hex`` (output hexadecimal instruction), and ``program.hex`` (output hex file for Verilog to load into the memory using Verilog system function ``$readmemh()``, in _memory.v"_).
+
+## Chapter Summary
+After completing Step 01, you can load instructions from ROM. You now have a famous PC (program counter) in your hardware.
+
+Easy, isn't it? Let's get to the next easier step--"instruction decode"!

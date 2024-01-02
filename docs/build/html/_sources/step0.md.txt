@@ -39,3 +39,6 @@ make clean
     ├── wave        //generated executable
     └── wave.vcd    //generated waveform file
 ```
+
+## Chapter Summary
+After completing Step 00, you have built a useful RAM and ROM for future use.
